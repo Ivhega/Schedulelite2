@@ -9,16 +9,15 @@ Golden #EFB509
 Bronze #CD7213
 */
 
-const home = () => {
+const profile = () => {
   return (
     <View style={styles.main}>
-      <Text style={styles.heading1}>Welcome to</Text>
-      <Text style={styles.heading2}>SchedulElite!</Text>
+      <Text style={styles.heading1}>Profile</Text>
     </View>
   )
 }
 
-export default home
+export default profile
 
 const styles = StyleSheet.create({
     main: {
