@@ -17,6 +17,9 @@ const Home = () => {
     <View style={styles.main}>
       <Text style={styles.heading1}>Welcome to</Text>
       <Text style={styles.heading2}>SchedulElite!</Text>
+
+      <Text></Text>
+
       <Calendar
         // Current date
         current={new Date().toISOString().split('T')[0]}

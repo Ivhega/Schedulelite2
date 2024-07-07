@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Alert, StyleSheet, Text, Pressable, Modal, Image } from 'react-native';
 import { router, useRouter } from 'expo-router';
+
+import scheduleliteLogo from '../assets/images/schedulelite.jpg';
+
 //import Background from '@/components/Background';
 /* Colors
 Midnight blue #16253D
@@ -40,8 +43,8 @@ const LoginForm = () => {
     //<Background style={styles.background}>
     <View style={styles.container}>
       <Text style={styles.title}>SCHEDULELITE</Text>
-      <Image source={'../assets/images/schedulelite.jpg'} style={styles.logoImage} />
-      <Text style={styles.title}>Login</Text>
+      <Image source={require('../assets/images/schedulelite.jpg')} style={styles.logoImage} />
+      <Text style={styles.title2}>Login</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -84,6 +87,8 @@ const LoginForm = () => {
   );
 };
 
+//<Image source={'../assets/images/schedulelite.jpg'} style={styles.logoImage} />
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -106,7 +111,15 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: 'bold',
     marginBottom: 20,
-    marginTop: 50,
+    marginTop: 80,
+    textAlign: 'center',
+    color: '#EFB509',
+  },
+  title2: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    marginBottom: 40,
+    marginTop: 30,
     textAlign: 'center',
     color: '#EFB509',
   },
@@ -115,7 +128,7 @@ const styles = StyleSheet.create({
     width: 120,
     borderWidth: 1,
     borderRadius: 20,
-    backgroundColor: '#CD7213',
+    backgroundColor: '#EFB509',
     margin: 5,
     justifyContent: 'center',
   },
