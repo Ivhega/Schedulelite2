@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Alert, StyleSheet, Text, Pressable, Modal } from 'react-native';
+import { View, TextInput, Button, Alert, StyleSheet, Text, Pressable, Modal, Image } from 'react-native';
 import { router, useRouter } from 'expo-router';
 //import Background from '@/components/Background';
 /* Colors
@@ -40,6 +40,7 @@ const LoginForm = () => {
     //<Background style={styles.background}>
     <View style={styles.container}>
       <Text style={styles.title}>SCHEDULELITE</Text>
+      <Image source={'../assets/images/schedulelite.jpg'} style={styles.logoImage} />
       <Text style={styles.title}>Login</Text>
       <TextInput
         style={styles.input}
@@ -86,7 +87,7 @@ const LoginForm = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    marginTop: 50,
     alignItems: 'center',
     paddingHorizontal: 20,
     backgroundColor: '#16253D',
@@ -120,6 +121,7 @@ const styles = StyleSheet.create({
   },
   login: {
     fontSize: 18,
+    fontWeight: 'bold',
     textAlign: 'center',
     color: '#002C54',
   },
@@ -135,7 +137,13 @@ const styles = StyleSheet.create({
   },
   background: {
     flex: 1,
-  }
+  },
+  logoImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    margin: 5,
+  },
 });
 
 export default LoginForm; 
