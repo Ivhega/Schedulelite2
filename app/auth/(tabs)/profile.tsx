@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
+import { ScrollView } from 'react-native'
 
 /* Colors
 Midnight blue #16253D
@@ -10,11 +11,12 @@ Bronze #CD7213
 
 const profile = () => {
   return (
+    <ScrollView>
     <View style={styles.main}>
       <Text style={styles.heading1}>Profile</Text>
       <View style={styles.profileContainer}>
         <Image 
-          source={'../../assets/images/user.jpeg'}
+          source={require('../../../assets/images/user.jpeg')}
           style={styles.profileImage}
         />
         <View style={styles.textContainer}>
@@ -33,6 +35,7 @@ const profile = () => {
       <Text style={styles.text}>My courses are awesome. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </Text>
       </View>
     </View>
+    </ScrollView>
   )
 }
 

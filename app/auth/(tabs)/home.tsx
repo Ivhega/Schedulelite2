@@ -1,7 +1,9 @@
 
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
 import { Calendar } from 'react-native-calendars';
+
+import RNPickerSelect from 'react-native-picker-select';
 
 /* Colors
 Midnight blue #16253D
@@ -10,15 +12,32 @@ Golden #EFB509
 Bronze #CD7213
 */
 
+
 const Home = () => {
   const [selectedDate, setSelectedDate] = useState('');
+  const [selectedValue, setSelectedValue] = useState('');
 
   return (
+    <ScrollView>
     <View style={styles.main}>
       <Text style={styles.heading1}>Welcome to</Text>
       <Text style={styles.heading2}>SchedulElite!</Text>
 
-      <Text></Text>
+      <Text style={styles.normaltext}>We're excited to help assist you with your studies!</Text>
+      <Text style={styles.normaltext}>Please let us know what kind of service you're looking for:</Text>
+
+      <RNPickerSelect
+        onValueChange={(value) => setSelectedValue(value)}
+        items={[
+          { label: 'Academic Tutoring', value: 'Academic Tutoring' },
+          { label: 'Language Learning', value: 'Language Learning' },
+          { label: 'Skill Development', value: 'Skill Development' },
+        ]}
+        style={pickerSelectStyles}
+        placeholder={{ label: 'Select an option...', value: null }}
+      />
+
+      <Text style={styles.normaltext}>Please select an available day for {selectedValue} to look at: </Text>
 
       <Calendar
         // Current date
@@ -58,6 +77,7 @@ const Home = () => {
         style={styles.calendar}
       />
     </View>
+    </ScrollView>
   );
 }
 
@@ -86,6 +106,48 @@ const styles = StyleSheet.create({
     color: '#EFB509',
   },
   calendar: {
+    marginTop: 30,
+    marginBottom: 40,
+  },
+  selectedValue: {
+    marginTop: 10,
+    fontSize: 16,
+    color: '#EFB509',
+  },
+  normaltext: {
+    fontSize: 20,
+    color: '#EFB509',
+    marginTop: 20,
+    textAlign: 'center',
+    
+  }
+});
+
+const pickerSelectStyles = {
+  inputIOS: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
+    backgroundColor: 'white',
+    marginBottom: 10,
+    marginTop:20,
+  },
+  inputAndroid: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
+    backgroundColor: 'white',
+    marginBottom: 10,
     marginTop: 20,
   },
-});
+};
