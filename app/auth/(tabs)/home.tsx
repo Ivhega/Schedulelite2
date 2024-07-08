@@ -151,7 +151,7 @@ const pickerSelectStyles = {
     borderColor: 'gray',
     borderRadius: 4,
     color: 'black',
-    paddingRight: 30, // to ensure the text is never behind the icon
+    paddingRight: 30, 
     backgroundColor: 'white',
     marginBottom: 10,
     marginTop:20,
@@ -164,7 +164,7 @@ const pickerSelectStyles = {
     borderColor: 'gray',
     borderRadius: 4,
     color: 'black',
-    paddingRight: 30, // to ensure the text is never behind the icon
+    paddingRight: 30, 
     backgroundColor: 'white',
     marginBottom: 10,
     marginTop: 20,
