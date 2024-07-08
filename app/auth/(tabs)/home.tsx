@@ -37,7 +37,11 @@ const Home = () => {
         placeholder={{ label: 'Select an option...', value: null }}
       />
 
-      <Text style={styles.normaltext}>Please select an available day for {selectedValue} to look at: </Text>
+      {selectedValue ? (
+          <Text style={styles.normaltext}>
+            Please select an available day for {selectedValue} to look at:
+          </Text>
+        ) : null}
 
       <Calendar
         // Current date
