@@ -37,14 +37,14 @@ const Home = () => {
           { label: 'Skill Development', value: 'Skill Development' },
         ]}
         style={pickerSelectStyles}
-        placeholder={{ label: 'Select an option...', value: null }}
+        placeholder={{ label: 'Select an option...', value: '' }}
       />
 
-      {selectedValue ? (
+      {selectedValue !== '' && (
           <Text style={styles.normaltext}>
             Please select an available day for {selectedValue} to look at:
           </Text>
-        ) : null}
+        )}
 
       <Calendar
         // Current date
