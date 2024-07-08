@@ -1,5 +1,5 @@
 
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Image } from 'react-native';
 import React, { useState } from 'react';
 import { Calendar } from 'react-native-calendars';
 
@@ -20,8 +20,11 @@ const Home = () => {
   return (
     <ScrollView>
     <View style={styles.main}>
-      <Text style={styles.heading1}>Welcome to</Text>
-      <Text style={styles.heading2}>SchedulElite!</Text>
+        <View style={styles.logoContainer}>
+          <Image source={require('../../../assets/images/schedulelite.jpg')} style={styles.logoImage} />
+          <Text style={styles.heading1}>Welcome to SchedulElite!</Text>
+          
+        </View>
 
       <Text style={styles.normaltext}>We're excited to help assist you with your studies!</Text>
       <Text style={styles.normaltext}>Please let us know what kind of service you're looking for:</Text>
@@ -95,10 +98,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#16253D',
     paddingHorizontal: 10,
   },
+  logoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 60,
+  },
   heading1: {
     fontSize: 35,
     fontWeight: 'bold',
-    marginTop: 60,
     fontFamily: 'Arial',
     color: '#EFB509',
   },
@@ -123,8 +130,16 @@ const styles = StyleSheet.create({
     color: '#EFB509',
     marginTop: 20,
     textAlign: 'center',
+  },
+  logoImage: {
     
-  }
+    width: 80,
+    height: 80,
+    borderRadius: 60,
+    borderWidth: 2,
+    borderColor: '#EFB509',
+    margin: 5,
+  },
 });
 
 const pickerSelectStyles = {
