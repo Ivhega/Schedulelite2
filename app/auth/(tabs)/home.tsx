@@ -26,8 +26,8 @@ const Home = () => {
           
         </View>
 
-      <Text style={styles.normaltext}>We're excited to help assist you with your studies!</Text>
-      <Text style={styles.normaltext}>Please let us know what kind of service you're looking for:</Text>
+      <Text style={styles.normalText}>We're excited to help assist you with your studies!</Text>
+      <Text style={styles.normalText}>Please let us know what kind of service you're looking for:</Text>
 
       <RNPickerSelect
         onValueChange={(value) => setSelectedValue(value)}
@@ -41,7 +41,7 @@ const Home = () => {
       />
 
       {selectedValue !== '' && (
-          <Text style={styles.normaltext}>
+          <Text style={styles.normalText}>
             Please select an available day for {selectedValue} to look at:
           </Text>
         )}
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#EFB509',
   },
-  normaltext: {
+  normalText: {
     fontSize: 20,
     color: '#EFB509',
     marginTop: 20,
