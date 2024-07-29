@@ -100,4 +100,4 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 8,
   },
-})};
+});
