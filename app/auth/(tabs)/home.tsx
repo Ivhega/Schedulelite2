@@ -172,7 +172,7 @@ const pickerSelectStyles = {
 };
 */
 
-import { ScrollView, StyleSheet, Text, View, Image, Button, Alert, TextInput } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Image, Alert, TextInput, Pressable } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { Calendar } from 'react-native-calendars';
 import RNPickerSelect from 'react-native-picker-select';
@@ -183,6 +183,7 @@ const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [instructors, setInstructors] = useState([]);
   const [selectedInstructor, setSelectedInstructor] = useState('');
+  const [selectedTime, setSelectedTime] = useState('');
   const [markedDates, setMarkedDates] = useState({});
   const [bookings, setBookings] = useState([]);
   const [studentName, setStudentName] = useState('');
@@ -212,7 +213,7 @@ const Home = () => {
     if (selectedInstructor) {
       const instructor = instructors.find(inst => inst.id === selectedInstructor);
       if (instructor) {
-        const availability = instructor.availability.reduce((acc, date) => {
+        const availability = instructor.availability.reduce((acc, { date }) => {
           acc[date] = { available: true, marked: true, dotColor: '#EFB509' };
           return acc;
         }, {});
@@ -224,17 +225,18 @@ const Home = () => {
   }, [selectedInstructor, instructors]);
 
   const handleBooking = () => {
-    if (selectedDate && selectedInstructor && studentName) {
+    if (selectedDate && selectedInstructor && selectedTime && studentName) {
       const isBooked = bookings.some(
-        booking => booking.date === selectedDate && booking.instructorId === selectedInstructor
+        booking => booking.date === selectedDate && booking.instructorId === selectedInstructor && booking.time === selectedTime
       );
 
       if (isBooked) {
-        Alert.alert('Error', 'This date is already booked for the selected instructor.');
+        Alert.alert('Error', 'This time slot is already booked for the selected date.');
       } else {
         axios.post('https://668e9654bf9912d4c92eede2.mockapi.io/tasks/bookings', {
           date: selectedDate,
           instructorId: selectedInstructor,
+          time: selectedTime,
           category: selectedCategory,
           studentName: studentName,
         })
@@ -253,6 +255,10 @@ const Home = () => {
   };
 
   const filteredInstructors = instructors.filter(instructor => instructor.category === selectedCategory);
+  const selectedInstructorData = instructors.find(inst => inst.id === selectedInstructor);
+  const availableTimes = selectedInstructorData?.availability.find(a => a.date === selectedDate)?.times || [];
+
+  const selectedInstructorName = selectedInstructorData?.name || '';
 
   return (
     <ScrollView>
@@ -297,43 +303,51 @@ const Home = () => {
           placeholder={{ label: 'Select an instructor...', value: '' }}
         />
 
-        {selectedCategory !== '' && (
-          <>
-            <Text style={styles.normalText}>
-              Please select an available day for {selectedCategory}:
-            </Text>
+        <Text style={styles.normalText}>
+          Please select an available day for {selectedCategory} with {selectedInstructorName}:
+        </Text>
+        <Text style={styles.normalText}>
+          (available days are highlighted by a yellow dot)
+        </Text>
 
-            <Calendar
-              current={new Date().toISOString().split('T')[0]}
-              markedDates={{
-                ...markedDates,
-                [selectedDate]: {
-                  selected: true,
-                  selectedColor: '#002C54',
-                },
-              }}
-              onDayPress={(day) => {
-                const dateString = day.dateString;
-                if (markedDates[dateString]?.available) {
-                  setSelectedDate(dateString);
-                } else {
-                  Alert.alert('Error', 'This date is not available for the selected instructor.');
-                }
-              }}
-              monthFormat={'yyyy MM'}
-              hideArrows={false}
-              hideExtraDays={true}
-              hideDayNames={false}
-              showWeekNumbers={false}
-              onPressArrowLeft={(subtractMonth) => subtractMonth()}
-              onPressArrowRight={(addMonth) => addMonth()}
-              style={styles.calendar}
-            />
+        <Calendar
+          current={new Date().toISOString().split('T')[0]}
+          markedDates={{
+            ...markedDates,
+            [selectedDate]: {
+              selected: true,
+              selectedColor: '#002C54',
+            },
+          }}
+          onDayPress={(day) => {
+            const dateString = day.dateString;
+            if (markedDates[dateString]?.available) {
+              setSelectedDate(dateString);
+            } else {
+              Alert.alert('Error', 'This date is not available for the selected instructor.');
+            }
+          }}
+          monthFormat={'yyyy MM'}
+          hideArrows={false}
+          hideExtraDays={true}
+          hideDayNames={false}
+          showWeekNumbers={false}
+          onPressArrowLeft={(subtractMonth) => subtractMonth()}
+          onPressArrowRight={(addMonth) => addMonth()}
+          style={styles.calendar}
+        />
 
-            <Button title="Book" onPress={handleBooking} />
-          </>
-        )}
+        <Text style={styles.normalText}>Select a Time:</Text>
+        <RNPickerSelect
+          onValueChange={(value) => setSelectedTime(value)}
+          items={availableTimes.map(time => ({ label: time, value: time }))}
+          style={pickerSelectStyles}
+          placeholder={{ label: 'Select a time...', value: '' }}
+        />
 
+        <Pressable style={styles.press} onPress={handleBooking}>
+          <Text style={styles.pressText}>Book</Text>
+        </Pressable>
       </View>
     </ScrollView>
   );
@@ -357,13 +371,6 @@ const styles = StyleSheet.create({
   heading1: {
     fontSize: 35,
     fontWeight: 'bold',
-    fontFamily: 'Arial',
-    color: '#EFB509',
-  },
-  heading2: {
-    fontSize: 35,
-    fontWeight: 'bold',
-    marginTop: 5,
     fontFamily: 'Arial',
     color: '#EFB509',
   },
@@ -400,6 +407,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginVertical: 10,
   },
+  press: {
+    height: 50,
+    width: 120,
+    borderWidth: 1,
+    borderRadius: 20,
+    backgroundColor: '#EFB509',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+  pressText: {
+    fontSize: 20,
+    color: '#16253D',
+    textAlign: 'center',
+  }
 });
 
 const pickerSelectStyles = {
