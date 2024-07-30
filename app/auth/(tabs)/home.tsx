@@ -371,7 +371,6 @@ const styles = StyleSheet.create({
   heading1: {
     fontSize: 35,
     fontWeight: 'bold',
-    fontFamily: 'Arial',
     color: '#EFB509',
   },
   calendar: {

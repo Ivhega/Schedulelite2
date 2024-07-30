@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
     fontSize: 35,
     fontWeight: 'bold',
     marginTop: 60,
-    fontFamily: 'Arial',
     color: '#CD7213',
   },
   profileContainer: {
@@ -72,7 +71,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#EFB509',
     marginBottom: 5,
-    fontFamily: 'Arial',
   },
   descriptionContainer: {
     flexDirection: 'column',

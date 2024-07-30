@@ -168,7 +168,7 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, Alert, StyleSheet, Text, Pressable, Modal, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import axios from 'axios';
-import { useAuth } from '@/contexts/AuthContext'; // Asegúrate de que la ruta sea correcta
+import { useAuth } from '@/contexts/AuthContext';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -191,9 +191,9 @@ const LoginForm = () => {
       const users = response.data;
       if (users.length > 0) {
         const user = users[0];
-        setUserName(user.name); // Establece el nombre de usuario en el contexto
+        setUserName(user.name); 
         Alert.alert('Login successful');
-        router.push('/auth'); // Redirige a la página /auth
+        router.push('/auth'); 
       } else {
         Alert.alert('Error', 'Invalid credentials.');
       }

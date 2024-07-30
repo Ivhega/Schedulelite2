@@ -45,7 +45,7 @@ export default function Instructors() {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.form}>
-        <Text style={styles.title}>Offer Your Class, {userName || 'Guest'}</Text>
+        <Text style={styles.title}>Offer Your Class, {userName}</Text>
         <View style={styles.row}>
           <Text style={styles.label}>Day:</Text>
           <TouchableOpacity
