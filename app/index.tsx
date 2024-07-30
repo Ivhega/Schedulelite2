@@ -164,21 +164,18 @@
 // export default LoginForm; 
 
 
-
-
-
-
 import React, { useState } from 'react';
 import { View, TextInput, Button, Alert, StyleSheet, Text, Pressable, Modal, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import axios from 'axios';
-import scheduleliteLogo from '../assets/images/schedulelite.jpg';
+import { useAuth } from '@/contexts/AuthContext'; // Asegúrate de que la ruta sea correcta
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const router = useRouter();
+  const { setUserName } = useAuth();
 
   const handleLogin = async () => {
     if (email === '' || password === '') {
@@ -187,19 +184,16 @@ const LoginForm = () => {
     }
 
     try {
-      // Ajusta la URL a la colección de usuarios de tu MockAPI
       const response = await axios.get('https://668e97dbbf9912d4c92ef60f.mockapi.io/users', {
-        params: {
-          email: email,
-          password: password,
-        },
+        params: { email, password }
       });
 
       const users = response.data;
-
       if (users.length > 0) {
+        const user = users[0];
+        setUserName(user.name); // Establece el nombre de usuario en el contexto
         Alert.alert('Login successful');
-        router.push("/auth");
+        router.push('/auth'); // Redirige a la página /auth
       } else {
         Alert.alert('Error', 'Invalid credentials.');
       }
@@ -238,7 +232,6 @@ const LoginForm = () => {
         onChangeText={setPassword}
         secureTextEntry
       />
-
       <View style={styles.buttons}>
         <Pressable style={styles.press} onPress={handleLogin}>
           <Text style={styles.login}>Login</Text>
@@ -247,7 +240,6 @@ const LoginForm = () => {
           <Text style={styles.login}>Register</Text>
         </Pressable>
       </View>
-
       <Modal
         visible={isModalVisible}
         animationType="slide"

@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { Picker } from '@react-native-picker/picker';
 import moment from 'moment';
+import { useAuth } from '@/contexts/AuthContext';
+
 
 type ClassType = 'Academic Tutoring' | 'Language Learning' | 'Skill Development';
 
@@ -12,14 +14,15 @@ interface Schedule {
 }
 
 export default function Instructors() {
-  const [schedule, setSchedule] = useState<Schedule>({});
-  const [selectedDate, setSelectedDate] = useState<string>('');
-  const [startHour, setStartHour] = useState<Date | null>(null);
-  const [endHour, setEndHour] = useState<Date | null>(null);
-  const [classType, setClassType] = useState<ClassType>('Academic Tutoring');
-  const [isStartHourPickerVisible, setStartHourPickerVisibility] = useState(false);
-  const [isEndHourPickerVisible, setEndHourPickerVisibility] = useState(false);
-  const [isCalendarVisible, setCalendarVisible] = useState(false);
+  const { userName } = useAuth(); // Access userName from context
+  const [schedule, setSchedule] = React.useState<Schedule>({});
+  const [selectedDate, setSelectedDate] = React.useState<string>('');
+  const [startHour, setStartHour] = React.useState<Date | null>(null);
+  const [endHour, setEndHour] = React.useState<Date | null>(null);
+  const [classType, setClassType] = React.useState<ClassType>('Academic Tutoring');
+  const [isStartHourPickerVisible, setStartHourPickerVisibility] = React.useState(false);
+  const [isEndHourPickerVisible, setEndHourPickerVisibility] = React.useState(false);
+  const [isCalendarVisible, setCalendarVisible] = React.useState(false);
 
   const handleSave = () => {
     if (selectedDate && startHour && endHour) {
@@ -42,7 +45,7 @@ export default function Instructors() {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.form}>
-        <Text style={styles.title}>Offer Your Class</Text>
+        <Text style={styles.title}>Offer Your Class, {userName || 'Guest'}</Text>
         <View style={styles.row}>
           <Text style={styles.label}>Day:</Text>
           <TouchableOpacity
@@ -196,11 +199,11 @@ const styles = StyleSheet.create({
   picker: {
     height: 50,
     width: '100%',
-    color: '#EFB509', 
+    color: '#EFB509',
   },
   button: {
-    backgroundColor: '#CD7213', 
-    borderRadius: 10, 
+    backgroundColor: '#CD7213',
+    borderRadius: 10,
     paddingVertical: 12,
     paddingHorizontal: 36,
     alignItems: 'center',

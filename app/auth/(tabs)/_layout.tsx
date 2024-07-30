@@ -6,11 +6,13 @@ import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { AuthProvider } from '@/contexts/AuthContext';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
+    <AuthProvider>
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
@@ -44,5 +46,6 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
+    </AuthProvider>
   );
 }
