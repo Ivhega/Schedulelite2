@@ -167,6 +167,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Alert, StyleSheet, Text, Pressable, Modal, Image } from 'react-native';
 import { useRouter } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -174,8 +175,9 @@ const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const navigation = useNavigation();
   const router = useRouter();
-  const { setUserName } = useAuth();
+  const { setUserName, setUserEmail } = useAuth();
 
   const handleLogin = async () => {
     if (email === '' || password === '') {
@@ -191,9 +193,13 @@ const LoginForm = () => {
       const users = response.data;
       if (users.length > 0) {
         const user = users[0];
-        setUserName(user.name); 
+        setUserName(user.name);
+        
+        setUserEmail(user.email);
+        
         Alert.alert('Login successful');
-        router.push('/auth'); 
+        //navigation.navigate('home');
+        router.push('/auth/home'); 
       } else {
         Alert.alert('Error', 'Invalid credentials.');
       }

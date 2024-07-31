@@ -27,6 +27,8 @@ export default function RootLayout() {
     return null;
   }
 
+  console.log('AuthProvider is wrapping the app');
+
   return (
     <AuthProvider>
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
