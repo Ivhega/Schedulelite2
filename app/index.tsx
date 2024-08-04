@@ -184,17 +184,17 @@ const LoginForm = () => {
       Alert.alert('Error', 'Please fill in all fields.');
       return;
     }
-/*
+
     try {
       const response = await axios.get('https://668e97dbbf9912d4c92ef60f.mockapi.io/users', {
         params: { email, password }
       });
-*/
 
+/*
   try {
     const response = await axios.get('https://66aff2df6a693a95b5378ce9.mockapi.io/student', {
       params: { email, password }
-    });
+    });*/
 
       const users = response.data;
       if (users.length > 0) {
