@@ -289,14 +289,30 @@ import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
 import { useAuth } from '@/contexts/AuthContext';
 
+type Booking = {
+  id: string;
+  date: string;
+  instructorId: string;
+  time: string;
+  category: string;
+  studentName: string;
+};
+
+type Instructor = {
+  id: string;
+  name: string;
+  category: string;
+  availability: { date: string; times: string[] }[];
+};
+
 const Home = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [instructors, setInstructors] = useState([]);
+  const [instructors, setInstructors] = useState<Instructor[]>([]);
   const [selectedInstructor, setSelectedInstructor] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [markedDates, setMarkedDates] = useState({});
-  const [bookings, setBookings] = useState([]);
+  const [bookings, setBookings] = useState<Booking[]>([]);
   const { user } = useAuth();
 
   
