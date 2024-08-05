@@ -54,7 +54,10 @@ const Home = () => {
   }, [selectedInstructor, instructors]);
 
   const handleBooking = () => {
-    if (selectedDate && selectedInstructor && selectedTime && studentName) {
+
+    const selectedInstructorData = instructors.find(inst => inst.id === selectedInstructor);
+
+    if (selectedDate && selectedInstructor && selectedTime && studentName && selectedInstructorData) {
       const isBooked = bookings.some(
         booking => booking.date === selectedDate && booking.instructorId === selectedInstructor && booking.time === selectedTime
       );
@@ -65,6 +68,7 @@ const Home = () => {
         axios.post('https://668e9654bf9912d4c92eede2.mockapi.io/tasks/bookings', {
           date: selectedDate,
           instructorId: selectedInstructor,
+          instructorName: selectedInstructorData.name,
           time: selectedTime,
           category: selectedCategory,
           studentName: studentName,
@@ -355,7 +359,10 @@ const Home = () => {
   }, [selectedInstructor, instructors]);
 
   const handleBooking = () => {
-    if (selectedDate && selectedInstructor && selectedTime) {
+
+    const selectedInstructorData = instructors.find(inst => inst.id === selectedInstructor);
+
+    if (selectedDate && selectedInstructor && selectedTime && selectedInstructorData) {
       const isBooked = bookings.some(
         booking => booking.date === selectedDate && booking.instructorId === selectedInstructor && booking.time === selectedTime
       );
@@ -366,6 +373,7 @@ const Home = () => {
         axios.post('https://668e9654bf9912d4c92eede2.mockapi.io/tasks/bookings', {
           date: selectedDate,
           instructorId: selectedInstructor,
+          instructorName: selectedInstructorData.name,
           time: selectedTime,
           category: selectedCategory,
           studentName: user?.name || 'Unknown',

@@ -7,6 +7,7 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { AuthProvider } from '@/contexts/AuthContext';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -42,6 +43,15 @@ export default function TabLayout() {
           title: 'Instructors',
           tabBarIcon: ({ color, focused }) => (
             <MaterialCommunityIcons name={focused ? "school" : "school-outline"} size={24} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="booking"
+        options={{
+          title: 'Bookings',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? "book" : "book-outline"} size={24} color={color} />
           ),
         }}
       />
