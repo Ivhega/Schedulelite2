@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 };
 */
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 interface AuthContextType {
   user: { name: string; email: string } | null;
@@ -89,14 +89,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<{ name: string; email: string } | null>(null);
 
   const setUserName = (name: string) => {
-    setUser(prevUser => (prevUser ? { ...prevUser, name } : { name, email: '' }));
+    setUser(prevUser => {
+      const updatedUser = prevUser ? { ...prevUser, name } : { name, email: '' };
+      console.log('Updated user name: ', updatedUser);
+      return updatedUser;
+    });
   };
 
   const setUserEmail = (email: string) => {
-    setUser(prevUser => (prevUser ? { ...prevUser, email } : { name: '', email }));
+    setUser(prevUser => {
+      const updatedUser = prevUser ? { ...prevUser, email } : { name: '', email };
+      console.log('Updated user email:', updatedUser);
+      return updatedUser;
+    });
   };
 
-  console.log('AuthProvider User:', user);
+  useEffect(() => {
+    console.log('AuthProvider User:', user);
+  }, [user]);
 
   return (
     <AuthContext.Provider value={{ user, setUserName, setUserEmail }}>

@@ -194,8 +194,8 @@ const LoginForm = () => {
   try {
     const response = await axios.get('https://66aff2df6a693a95b5378ce9.mockapi.io/student', {
       params: { email, password }
-    });*/
-
+    });
+*/
       const users = response.data;
       if (users.length > 0) {
         const user = users[0];
@@ -204,7 +204,8 @@ const LoginForm = () => {
         setUserEmail(user.email);
         
         Alert.alert('Login successful');
-        //navigation.navigate('home');
+        console.log('Navigating to auth/(tabs)');
+        //navigation.navigate('auth/(tabs)');
         router.push('/auth'); 
       } else {
         Alert.alert('Error', 'Invalid credentials.');
