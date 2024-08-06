@@ -1,11 +1,10 @@
 import React from 'react';
 import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { Calendar } from 'react-native-calendars';
+import { Calendar, DateData } from 'react-native-calendars'; // Import DateData for typing
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { Picker } from '@react-native-picker/picker';
 import moment from 'moment';
 import { useAuth } from '@/contexts/AuthContext';
-
 
 type ClassType = 'Academic Tutoring' | 'Language Learning' | 'Skill Development';
 
@@ -14,7 +13,7 @@ interface Schedule {
 }
 
 export default function Instructors() {
-  const { userName } = useAuth(); // Access userName from context
+  const { user } = useAuth(); // Access user from context
   const [schedule, setSchedule] = React.useState<Schedule>({});
   const [selectedDate, setSelectedDate] = React.useState<string>('');
   const [startHour, setStartHour] = React.useState<Date | null>(null);
@@ -45,7 +44,7 @@ export default function Instructors() {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.form}>
-        <Text style={styles.title}>Offer Your Class, {userName}</Text>
+        <Text style={styles.title}>Offer Your Class, {user?.name}</Text>
         <View style={styles.row}>
           <Text style={styles.label}>Day:</Text>
           <TouchableOpacity
@@ -58,7 +57,7 @@ export default function Instructors() {
             <View style={styles.calendarWrapper}>
               <Calendar
                 current={new Date()}
-                onDayPress={(day) => {
+                onDayPress={(day: DateData) => { // Specify type DateData for day
                   setSelectedDate(day.dateString);
                   setCalendarVisible(false); // Hide calendar after selection
                 }}
@@ -244,3 +243,4 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 });
+
